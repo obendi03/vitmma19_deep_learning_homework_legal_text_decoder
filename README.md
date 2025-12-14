@@ -218,14 +218,16 @@ Egy futtatási log általában a következő, jól elkülöníthető szekciókat
 Ezeket a szekciókat a README-ben szereplő parancsokkal könnyen fájlba irányíthatod (`> log/run.log 2>&1`), ami megkönnyíti a hibakeresést és a futtatások reprodukálását.
 
 ## Docker Instructions (konténerizáció)
-A repository tartalmaz egy `Dockerfile`-t a reprodukálható környezethez. Használd az alábbi parancsokat (Windows példák a futtatáshoz):
+A repository tartalmaz egy `Dockerfile`-t a reprodukálható környezethez. Az alábbiakban a `Build` és `Run` parancsok külön blokkokban találhatók (a parancsok változatlanok):
 
-Build (futtasd a projekt gyökérkönyvtárából):
+### Build
+Futtasd a projekt gyökérkönyvtárából:
 ```bat
 docker build -t lstm_gpu_pipeline_full .
 ```
 
-Run (Windows `cmd.exe` példa, a parancs a helyi `log` és `data` mappákat csatolja a konténerhez és a kimenetet a `log/run.log`-ba menti):
+### Run
+Windows `cmd.exe` példa (a parancs a helyi `log` és `data` mappákat csatolja a konténerhez és a kimenetet a `log/run.log`-ba menti):
 ```bat
 docker run --gpus all --rm -v "%cd%\log:/app/log" -v "%cd%\data:/app/data" lstm_gpu_pipeline_full > log/run.log 2>&1
 ```
