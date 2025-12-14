@@ -1,5 +1,74 @@
 ## Deep Learning tantárgy (VITMMA19) — Projekt
 
+**Projektinformáció**
+- **Kiválasztott téma:** Jogszöveg dekódoló
+- **Hallgató:** Oláh Bendegúz István
+- **Aiming for +1 mark:** Nem
+
+**Rövid megoldásleírás**
+Moduláris, reprodukálható mélytanulási pipeline jogi szövegek érthetőségének előrejelzésére. Főbb komponensek: automatizált adatok letöltése/előfeldolgozása (`src/00_download_data.py`, `src/01_data_preprocessing.py`), baseline TF-IDF+LR, LSTM alapú modellek (BiLSTM, attention), HPO Ray Tune-nal, és evaluációs/kiértékelő scriptek (`src/03_1_evaluation_test_set.py`, `src/03_2_evaluation_consensus.py`).
+
+**Kísérleti beállítások (összefoglaló)**
+- Eszköz: GPU (naplókban `Using device: cuda` szerepel)
+- Baseline: TF-IDF + LogisticRegression
+- Fő modell: MultiLayerLSTM (+opcionális attention)
+- Fő metrikák: accuracy, weighted F1, confusion matrix
+
+**Adatelőkészítés**
+- Automatikus: futtasd a `src/00_download_data.py`-t (ha elérhető források) és aztán `src/01_data_preprocessing.py`-t. Ezek előállítják a feldolgozott CSV fájlokat a `data/` mappába (konténerben: `/app/data`).
+- Manuális: töltsd le a SharePoint ZIP-et, nevezd át `downloaded.zip`-re, csomagold ki és helyezd a `data/` mappába.
+- A `src/01_data_preprocessing.py` fájl tartalmazza a train/val/test felosztás logikáját és a konszenzus kezelést.
+
+**Naplózási követelmények**
+Minden futtatásnál a log fájlnak (`log/run.log`) tartalmaznia kell:
+- Konfiguráció: használt hiperparaméterek (pl. epoch, batch size, lr)
+- Adatfeldolgozás: sikeres betöltés és előfeldolgozás visszaigazolása
+- Modell architektúra: modell-összegzés, paraméterszám
+- Tanulási előrehaladás: epoch-onkénti metrikák (loss/accuracy vagy feladatra jellemző metrikák)
+- Validáció: epochonkénti validation metrikák
+- Végső kiértékelés: teszt eredmények (accuracy, F1, confusion matrix)
+
+Megjegyzés: a projekt `src/utils.py`-ja kezeli a logger konfigurációját; a logger stdout-ra ír, így a Docker futtatás esetén a kimenet a `log/run.log`-ba irányítható.
+
+**Futtatási lépések (lokálisan / konténerben)**
+1. Ellenőrizd, hogy a `data/` mappa tartalmazza a feldolgozott adatokat (pl. `train.csv`, `val.csv`, `test.csv`).
+2. Lokálisan: pip install -r requirements.txt, majd `python src/02_train.py` (vagy használj Ray Tune futtatást a HPO-hoz).
+3. Konténerben (példa Windows `cmd.exe`):
+```bat
+docker build -t dl-project .
+docker run --gpus all --rm -v "%cd%\log:/app/log" -v "%cd%\data:/app/data" dl-project > log/run.log 2>&1
+```
+
+**Fájlstruktúra (gyors összegzés)**
+- `Dockerfile` — konténerépítés
+- `requirements.txt` — Python függőségek
+- `src/` — pipeline forrásai: `00_download_data.py`, `01_data_preprocessing.py`, `02_train.py`, `02_train_ray_tune.py`, `03_1_evaluation_test_set.py`, `03_2_evaluation_consensus.py`, `04_inference.py`, `config.py`, `utils.py`, `model.py`
+- `model_developement/` — kísérleti futtatások és naplók
+- `evaluation_plots/` — vizuális kimenetek (pl. confusion matrix)
+- `log/` — futtatási naplók (pl. `run.log`)
+
+**Beadáshoz ellenőrzés (Submission checklist)**
+- Project Information: kitöltve (téma, név): **OK**
+- Solution Description: megtalálható a README-ben: **OK**
+- Data Preparation: `src/01_data_preprocessing.py` és `src/00_download_data.py` megvannak: **OK**
+- Dependencies: `requirements.txt` létezik: **OK**
+- Configuration: `src/config.py` tartalmaz konfigurációs változókat (pl. `NUM_EPOCHS`): **OK**
+- Logging: `src/utils.py` létezik, `log/run.log` jelenleg a repo-ban található: **OK**
+- Dockerfile: létezik: **OK**
+- Scripts: `src/02_train.py`, `src/03_1_evaluation_test_set.py`, `src/04_inference.py` megtalálhatók: **OK**
+
+**Eltérések / Hiányosságok (Eltérések fejezet)**
+- `data/` mappa: jelenleg nincs a repository gyökérében. A pipeline elvárja a `data/`-t a feldolgozott `train/val/test` fájlokkal. (Teendő: vagy futtasd `src/00_download_data.py`/`src/01_data_preprocessing.py` helyben, vagy töltsd fel a `data/` mappát és mount-oljad a konténerhez.)
+- Docker image build/run státusz nincs automatikusan ellenőrizve itt — javasolt helyben futtatni `docker build` és `docker run` parancsokat, és ellenőrizni, hogy a konténer ténylegesen lefut-e teljes pipeline-nal.
+
+Ha szeretnéd, elvégzem a következőket helyetted:
+- Futtatok egy gyors ellenőrzést, hogy `docker build` lefut-e (ha engeded és rendelkezel Dockerrel a gépen).
+- Létrehozom a hiányzó `data/` mappa helyőrző fájlokat, vagy generálok egy rövid példa `train.csv`-t a pipeline kipróbálásához.
+
+---
+
+## Deep Learning tantárgy (VITMMA19) — Projekt
+
 # Projektinformáció
 Kiválasztott téma: Jogszöveg dekódoló
 
