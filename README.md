@@ -51,13 +51,6 @@ Az összes kísérlet GPU-n futott; a futtatási naplók szerint a használt GPU
 - **Inference:** predikciós (inference) kód és eredmény-mentés a [src/04_inference.py](src/04_inference.py#L1-L40) fájlban található.
 
 
-Megjegyzés a manuális letöltésről: ha az automatikus letöltés nem működik vagy a link hitelesítést igényel, használd a következő, egyszerű manuális eljárást a *Legal Text Decoder* adatkészlethez:
-
-- Nyisd meg a SharePoint linket (a projekthez tartozó `Legal Text Decoder` megosztást) a böngésződben: másold be a linket a címsorba és nyisd meg.
-- Töltsd le a ZIP fájlt a böngészővel.
-- Nevezd át a letöltött fájlt `downloaded.zip`-re.
-- Helyezd a `downloaded.zip` fájlt a projekt `data/` mappájába (a konténerben ez a `/app/data`).
-
 
 
 ## Megjegyzések az HPO-hoz és a kiválasztáshoz
@@ -240,17 +233,6 @@ Megjegyzések:
 - A `--gpus all` opció biztosítja, hogy a konténer GPU-hozzáférést kapjon; győződj meg róla, hogy a Docker Engine és az NVIDIA Container Toolkit telepítve van a hoszton.
 - Futtasd először a `docker build` parancsot, majd a `docker run`-t.
 
-## Fájlszerkezet (összefoglaló)
-
-- `Dockerfile`: a projekt konténerizálásához és futtatási környezet építéséhez használatos (része a reprodukálható pipeline-nak).
-- `requirements.txt`: a Python függőségek listája, szükséges a környezet telepítéséhez (része a környezet előkészítésének).
-- `README.md`: dokumentáció és használati utasítások — nem futtatható komponens, de fontos a reprodukálhatósághoz.
-- `src/`: a pipeline magja — letöltés, adatelőkészítés, tanítás, kiértékelés és inference scriptjei (`00_download_data.py`, `01_data_preprocessing.py`, `02_train.py`, `03_evaluation.py`, `04_inference.py`, `config.py`, `utils.py`); ez a futtatható pipeline.
-- `src/`: a pipeline magja — letöltés, adatelőkészítés, tanítás, kiértékelés és inference scriptjei (`00_download_data.py`, `01_data_preprocessing.py`, `02_train.py`, `03_evaluation.py`, `04_inference.py`, `config.py`, `utils.py`); ez a futtatható pipeline.
-
-### `src/` tartalom (rövid felsorolás)
-
-## Fájlszerkezet (aktuális)
 ## Fájlszerkezet (aktuális)
 - `Dockerfile`: Leírja, hogyan épül és konfigurálódik a projekt konténeres futtatókörnyezete.
 - `requirements.txt`: Tartalmazza a projekt futtatásához szükséges Python-csomagok és verziók listáját.
@@ -264,7 +246,7 @@ Megjegyzések:
 - `data/` (nem verziózott; ide kerülnek a `train/val/test` fájlok): a nyers és feldolgozott bemeneti adatok helye, amelyet a pipeline használ.
 
 ### `src/` —  tartalom
-- `00_download_data.py` — adatletöltés és kicsomagolás (opcionális)
+- `00_download_data.py` — adatletöltés és kicsomagolás 
 - `01_data_preprocessing.py` — annotációk betöltése, tisztítás, konszenzus aggregálás, átlagoás, /val/test CSV előállítás
 - `02_train.py` — fő tréning script (modellépítés, training loop, checkpointing)
 - `02_train_ray_tune.py` — Ray Tune HPO futtatások és konfiguráció
