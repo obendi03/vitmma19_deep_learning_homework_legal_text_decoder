@@ -237,6 +237,15 @@ Megjegyzések:
 - A `--gpus all` opció biztosítja, hogy a konténer GPU-hozzáférést kapjon; győződj meg róla, hogy a Docker Engine és az NVIDIA Container Toolkit telepítve van a hoszton.
 - Futtasd először a `docker build` parancsot, majd a `docker run`-t.
 
+## Eltérések
+
+### Eltérés 1: Docker kötet-csatolások Windows-on
+**Futtatáshoz szükséges módosítás:** Windows `cmd.exe` alatt a Docker `-v` csatolásoknál a jelenlegi mappa hivatkozásához `%cd%`-et használok. Példa:
+```bat
+docker run --gpus all --rm -v "%cd%\data:/app/data" -v "%cd%\log:/app/log" lstm_gpu_pipeline_full > log/run.log 2>&1
+```
+
+
 ## Fájlszerkezet (aktuális)
 - `Dockerfile`: Leírja, hogyan épül és konfigurálódik a projekt konténeres futtatókörnyezete.
 - `requirements.txt`: Tartalmazza a projekt futtatásához szükséges Python-csomagok és verziók listáját.
