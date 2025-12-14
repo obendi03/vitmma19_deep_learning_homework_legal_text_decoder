@@ -94,7 +94,7 @@ Az alábbiakban rövid, rendezett eredmények találhatók a rendelkezésre áll
 
 Megjegyzés: a részletes Modell fejlesztés lépések verziók leírásai külön fájlban találhatók. Kérlek, másold át vagy szerkeszd a részleteket a következő fájlban: [model_developement/PER-LSTM_versions.md](model_developement/PER-LSTM_versions.md).
 
-## Adatelőkészítés
+## Adatelőkészítés (Data Preparation)
 
 A pipeline alapértelmezett működése: a konténer indításakor a `src/00_download_data.py` script próbálja automatikusan letölteni és kicsomagolni a szükséges nyers adatkészleteket a `data/` mappába (konténer belső útvonala: `/app/data`). Amennyiben Dockerrel futtatod, csatold a helyi `data` mappát a konténerhez a `-v "%cd%\data:/app/data"` opcióval a `docker run` parancsban.
 
