@@ -125,10 +125,6 @@ MultiLayerLSTM(
   (fc): Linear(in_features=128, out_features=5, bias=True)
 )
 ```
-- Total parameters      : 1,757,958
-- Trainable parameters  : 1,757,958
-- Frozen parameters     : 0
-- Embedding parameters  : 1,525,760
 
 **Tanítási / konfigurációs beállítások (a log alapján):**
 - Adatméretek: Train=2434, Val=272, Test=307
