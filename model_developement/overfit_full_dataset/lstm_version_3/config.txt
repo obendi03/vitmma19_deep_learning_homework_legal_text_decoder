@@ -1,0 +1,20 @@
+==== CONFIG & HYPERPARAMETERS START ====
+BATCH_SIZE          : 16
+DATA_DIR            : /app/data
+EARLY_STOP_PATIENCE : 40
+FC_DROPOUT          : 0.4
+LEARNING_RATE       : 0.001
+LOG_FILE            : /app/logs/run.log
+LSTM_DROPOUT        : 0.3
+LSTM_HIDDEN_DIM     : 128
+MODEL_NAME          : LSTM
+MODEL_PATH          : /app/data/lstm_model.pth
+NUM_CLASSES         : 5
+NUM_EPOCHS          : 1000
+NUM_LSTM_LAYERS     : 2
+SEQ_LEN             : 200
+W2V_PATH            : /app/data/w2v.model
+WEIGHT_DECAY        : 0.0001
+WORD2_VEC_MIN_COUNT : 1
+WORD2_VEC_VECTOR_SIZE: 64
+==== CONFIG & HYPERPARAMETERS END ====

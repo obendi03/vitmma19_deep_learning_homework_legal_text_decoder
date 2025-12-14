@@ -1,0 +1,213 @@
+=== Starting pipeline at Sat Dec 13 21:23:18 UTC 2025 ===
+Running script: 00_download_data.py
+Downloading to /app/data/downloaded.zip ...
+File downloaded successfully!
+Running script: 01_data_preprocessing.py
+ZIP extracted to: /app/extracted_zip
+ERROR loading file.json: 'rating'
+ERROR loading meta.json: 'str' object has no attribute 'get'
+Base DF columns: Index(['text', 'rating'], dtype='object')
+Consensus DF columns: Index(['text', 'rating'], dtype='object')
+Base DF shape: (3737, 2)
+Consensus DF shape: (2648, 2)
+Number of rows filtered out from base_df because they exist in consensus: 615
+Number of aggregated consensus texts (after averaging): 609
+Consensus inference saved to: /app/data/inference.csv
+Train/Val/Test split saved.
+Running script: 02_train.py
+[2025-12-13 21:23:31,693] INFO: ==== FULL DATASET TRAIN/VAL START ====
+[2025-12-13 21:23:34,462] INFO: Using device: cuda
+Alkalmazott jogi augmentáció...
+Augmentáció kész!
+[2025-12-13 21:23:34,595] INFO: Train size: 2434, Val size: 272
+[2025-12-13 21:23:34,640] INFO: collecting all words and their counts
+[2025-12-13 21:23:34,641] INFO: PROGRESS: at sentence #0, processed 0 words, keeping 0 word types
+[2025-12-13 21:23:34,685] INFO: collected 23558 word types from a corpus of 123782 raw words and 2434 sentences
+[2025-12-13 21:23:34,685] INFO: Creating a fresh vocabulary
+[2025-12-13 21:23:34,857] INFO: Word2Vec lifecycle event {'msg': 'effective_min_count=1 retains 23558 unique words (100.00% of original 23558, drops 0)', 'datetime': '2025-12-13T21:23:34.855010', 'gensim': '4.4.0', 'python': '3.10.14 (main, Mar 21 2024, 16:24:04) [GCC 11.2.0]', 'platform': 'Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.35', 'event': 'prepare_vocab'}
+[2025-12-13 21:23:34,857] INFO: Word2Vec lifecycle event {'msg': 'effective_min_count=1 leaves 123782 word corpus (100.00% of original 123782, drops 0)', 'datetime': '2025-12-13T21:23:34.857833', 'gensim': '4.4.0', 'python': '3.10.14 (main, Mar 21 2024, 16:24:04) [GCC 11.2.0]', 'platform': 'Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.35', 'event': 'prepare_vocab'}
+[2025-12-13 21:23:35,130] INFO: deleting the raw counts dictionary of 23558 items
+[2025-12-13 21:23:35,131] INFO: sample=0.001 downsamples 21 most-common words
+[2025-12-13 21:23:35,132] INFO: Word2Vec lifecycle event {'msg': 'downsampling leaves estimated 102757.44745387798 word corpus (83.0%% of prior 123782)', 'datetime': '2025-12-13T21:23:35.132309', 'gensim': '4.4.0', 'python': '3.10.14 (main, Mar 21 2024, 16:24:04) [GCC 11.2.0]', 'platform': 'Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.35', 'event': 'prepare_vocab'}
+[2025-12-13 21:23:35,532] INFO: estimated required memory for 23558 words and 64 dimensions: 23840696 bytes
+[2025-12-13 21:23:35,532] INFO: resetting layer weights
+[2025-12-13 21:23:35,554] INFO: Word2Vec lifecycle event {'update': False, 'trim_rule': 'None', 'datetime': '2025-12-13T21:23:35.554002', 'gensim': '4.4.0', 'python': '3.10.14 (main, Mar 21 2024, 16:24:04) [GCC 11.2.0]', 'platform': 'Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.35', 'event': 'build_vocab'}
+[2025-12-13 21:23:35,554] INFO: Word2Vec lifecycle event {'msg': 'training model with 4 workers on 23558 vocabulary and 64 features, using sg=0 hs=0 sample=0.001 negative=5 window=5 shrink_windows=True', 'datetime': '2025-12-13T21:23:35.554370', 'gensim': '4.4.0', 'python': '3.10.14 (main, Mar 21 2024, 16:24:04) [GCC 11.2.0]', 'platform': 'Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.35', 'event': 'train'}
+[2025-12-13 21:23:35,704] INFO: EPOCH 0: training on 123782 raw words (102781 effective words) took 0.1s, 729010 effective words/s
+[2025-12-13 21:23:35,837] INFO: EPOCH 1: training on 123782 raw words (102805 effective words) took 0.1s, 818152 effective words/s
+[2025-12-13 21:23:35,967] INFO: EPOCH 2: training on 123782 raw words (102738 effective words) took 0.1s, 843058 effective words/s
+[2025-12-13 21:23:36,101] INFO: EPOCH 3: training on 123782 raw words (102810 effective words) took 0.1s, 818755 effective words/s
+[2025-12-13 21:23:36,240] INFO: EPOCH 4: training on 123782 raw words (102706 effective words) took 0.1s, 774299 effective words/s
+[2025-12-13 21:23:36,241] INFO: Word2Vec lifecycle event {'msg': 'training on 618910 raw words (513840 effective words) took 0.7s, 748278 effective words/s', 'datetime': '2025-12-13T21:23:36.241246', 'gensim': '4.4.0', 'python': '3.10.14 (main, Mar 21 2024, 16:24:04) [GCC 11.2.0]', 'platform': 'Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.35', 'event': 'train'}
+[2025-12-13 21:23:36,241] INFO: Word2Vec lifecycle event {'params': 'Word2Vec<vocab=23558, vector_size=64, alpha=0.025>', 'datetime': '2025-12-13T21:23:36.241461', 'gensim': '4.4.0', 'python': '3.10.14 (main, Mar 21 2024, 16:24:04) [GCC 11.2.0]', 'platform': 'Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.35', 'event': 'created'}
+[2025-12-13 21:23:36,241] INFO: Word2Vec trained. Vocab size: 23558 Embedding dim: 64
+[2025-12-13 21:23:36,405] INFO: ==== CONFIG & HYPERPARAMETERS START ====
+[2025-12-13 21:23:36,406] INFO: AUGMENTATION        : True
+[2025-12-13 21:23:36,406] INFO: AUG_PROB            : 0.15
+[2025-12-13 21:23:36,406] INFO: BATCH_SIZE          : 32
+[2025-12-13 21:23:36,406] INFO: BIDIRECTIONAL       : False
+[2025-12-13 21:23:36,407] INFO: DATA_DIR            : /app/data
+[2025-12-13 21:23:36,410] INFO: EARLY_STOP_PATIENCE : 20
+[2025-12-13 21:23:36,410] INFO: FC_DROPOUT          : 0.492
+[2025-12-13 21:23:36,411] INFO: LEARNING_RATE       : 0.000136
+[2025-12-13 21:23:36,411] INFO: LOG_FILE            : /app/logs/run.log
+[2025-12-13 21:23:36,411] INFO: LSTM_DROPOUT        : 0.299
+[2025-12-13 21:23:36,411] INFO: LSTM_HIDDEN_DIM     : 64
+[2025-12-13 21:23:36,411] INFO: MODEL_NAME          : LSTM
+[2025-12-13 21:23:36,411] INFO: MODEL_PATH          : /app/data/lstm_model.pth
+[2025-12-13 21:23:36,411] INFO: NUM_CLASSES         : 5
+[2025-12-13 21:23:36,412] INFO: NUM_EPOCHS          : 1000
+[2025-12-13 21:23:36,412] INFO: NUM_LSTM_LAYERS     : 2
+[2025-12-13 21:23:36,412] INFO: SEQ_LEN             : 300
+[2025-12-13 21:23:36,412] INFO: W2V_PATH            : /app/data/w2v.model
+[2025-12-13 21:23:36,412] INFO: WEIGHT_DECAY        : 0.0001
+[2025-12-13 21:23:36,412] INFO: WORD2_VEC_MIN_COUNT : 1
+[2025-12-13 21:23:36,412] INFO: WORD2_VEC_VECTOR_SIZE: 64
+[2025-12-13 21:23:36,413] INFO: ==== CONFIG & HYPERPARAMETERS END ====
+[2025-12-13 21:23:42,878] INFO: ==== MODEL SUMMARY START ====
+[2025-12-13 21:23:42,878] INFO: Model architecture:
+[2025-12-13 21:23:42,878] INFO: MultiLayerLSTM(
+  (emb): Embedding(23559, 64, padding_idx=0)
+  (lstm): LSTM(64, 64, num_layers=2, batch_first=True, dropout=0.299)
+  (attention): Linear(in_features=64, out_features=1, bias=True)
+  (dropout): Dropout(p=0.492, inplace=False)
+  (fc): Linear(in_features=64, out_features=5, bias=True)
+)
+[2025-12-13 21:23:42,879] INFO: Total parameters      : 1,574,726
+[2025-12-13 21:23:42,879] INFO: Trainable parameters  : 1,574,726
+[2025-12-13 21:23:42,879] INFO: Frozen parameters     : 0
+[2025-12-13 21:23:42,879] INFO: Embedding parameters  : 1,507,776
+[2025-12-13 21:23:42,879] INFO: ==== MODEL SUMMARY END ====
+[2025-12-13 21:23:45,937] INFO: Epoch 1/1000 | Train Loss: 1.5810 | Train Acc: 20.95% | Val Loss: 1.5328 | Val Acc: 32.72%
+[2025-12-13 21:23:45,979] INFO: Validation loss improved. Model saved to /app/data/lstm_model.pth
+[2025-12-13 21:23:46,977] INFO: Epoch 2/1000 | Train Loss: 1.4643 | Train Acc: 33.36% | Val Loss: 1.4070 | Val Acc: 33.09%
+[2025-12-13 21:23:47,003] INFO: Validation loss improved. Model saved to /app/data/lstm_model.pth
+[2025-12-13 21:23:48,007] INFO: Epoch 3/1000 | Train Loss: 1.3944 | Train Acc: 34.02% | Val Loss: 1.3765 | Val Acc: 36.03%
+[2025-12-13 21:23:48,030] INFO: Validation loss improved. Model saved to /app/data/lstm_model.pth
+[2025-12-13 21:23:49,041] INFO: Epoch 4/1000 | Train Loss: 1.3541 | Train Acc: 38.21% | Val Loss: 1.3530 | Val Acc: 37.13%
+[2025-12-13 21:23:49,062] INFO: Validation loss improved. Model saved to /app/data/lstm_model.pth
+[2025-12-13 21:23:50,070] INFO: Epoch 5/1000 | Train Loss: 1.3250 | Train Acc: 41.54% | Val Loss: 1.3464 | Val Acc: 38.24%
+[2025-12-13 21:23:50,094] INFO: Validation loss improved. Model saved to /app/data/lstm_model.pth
+[2025-12-13 21:23:51,098] INFO: Epoch 6/1000 | Train Loss: 1.3109 | Train Acc: 41.95% | Val Loss: 1.3432 | Val Acc: 37.87%
+[2025-12-13 21:23:51,122] INFO: Validation loss improved. Model saved to /app/data/lstm_model.pth
+[2025-12-13 21:23:52,144] INFO: Epoch 7/1000 | Train Loss: 1.3014 | Train Acc: 43.39% | Val Loss: 1.3441 | Val Acc: 38.60%
+[2025-12-13 21:23:52,144] INFO: No improvement in val loss for 1 epoch(s).
+[2025-12-13 21:23:53,174] INFO: Epoch 8/1000 | Train Loss: 1.2997 | Train Acc: 42.44% | Val Loss: 1.3503 | Val Acc: 38.60%
+[2025-12-13 21:23:53,174] INFO: No improvement in val loss for 2 epoch(s).
+[2025-12-13 21:23:54,189] INFO: Epoch 9/1000 | Train Loss: 1.2930 | Train Acc: 42.65% | Val Loss: 1.3420 | Val Acc: 38.97%
+[2025-12-13 21:23:54,211] INFO: Validation loss improved. Model saved to /app/data/lstm_model.pth
+[2025-12-13 21:23:55,224] INFO: Epoch 10/1000 | Train Loss: 1.2888 | Train Acc: 43.02% | Val Loss: 1.3515 | Val Acc: 38.60%
+[2025-12-13 21:23:55,224] INFO: No improvement in val loss for 3 epoch(s).
+[2025-12-13 21:23:56,233] INFO: Epoch 11/1000 | Train Loss: 1.2855 | Train Acc: 43.92% | Val Loss: 1.3451 | Val Acc: 39.71%
+[2025-12-13 21:23:56,234] INFO: No improvement in val loss for 4 epoch(s).
+[2025-12-13 21:23:57,252] INFO: Epoch 12/1000 | Train Loss: 1.2851 | Train Acc: 43.47% | Val Loss: 1.3492 | Val Acc: 39.34%
+[2025-12-13 21:23:57,252] INFO: No improvement in val loss for 5 epoch(s).
+[2025-12-13 21:23:58,672] INFO: Epoch 13/1000 | Train Loss: 1.2772 | Train Acc: 44.74% | Val Loss: 1.3594 | Val Acc: 38.97%
+[2025-12-13 21:23:58,673] INFO: No improvement in val loss for 6 epoch(s).
+[2025-12-13 21:23:59,703] INFO: Epoch 14/1000 | Train Loss: 1.2772 | Train Acc: 43.80% | Val Loss: 1.3436 | Val Acc: 40.44%
+[2025-12-13 21:23:59,703] INFO: No improvement in val loss for 7 epoch(s).
+[2025-12-13 21:24:00,849] INFO: Epoch 15/1000 | Train Loss: 1.2738 | Train Acc: 44.95% | Val Loss: 1.3438 | Val Acc: 39.34%
+[2025-12-13 21:24:00,849] INFO: No improvement in val loss for 8 epoch(s).
+[2025-12-13 21:24:01,861] INFO: Epoch 16/1000 | Train Loss: 1.2689 | Train Acc: 44.37% | Val Loss: 1.3598 | Val Acc: 39.34%
+[2025-12-13 21:24:01,861] INFO: No improvement in val loss for 9 epoch(s).
+[2025-12-13 21:24:02,875] INFO: Epoch 17/1000 | Train Loss: 1.2580 | Train Acc: 45.52% | Val Loss: 1.3750 | Val Acc: 38.97%
+[2025-12-13 21:24:02,876] INFO: No improvement in val loss for 10 epoch(s).
+[2025-12-13 21:24:03,889] INFO: Epoch 18/1000 | Train Loss: 1.2402 | Train Acc: 47.12% | Val Loss: 1.4551 | Val Acc: 36.40%
+[2025-12-13 21:24:03,889] INFO: No improvement in val loss for 11 epoch(s).
+[2025-12-13 21:24:04,904] INFO: Epoch 19/1000 | Train Loss: 1.1690 | Train Acc: 50.62% | Val Loss: 1.4453 | Val Acc: 39.34%
+[2025-12-13 21:24:04,904] INFO: No improvement in val loss for 12 epoch(s).
+[2025-12-13 21:24:05,909] INFO: Epoch 20/1000 | Train Loss: 1.0971 | Train Acc: 53.41% | Val Loss: 1.6281 | Val Acc: 38.60%
+[2025-12-13 21:24:05,909] INFO: No improvement in val loss for 13 epoch(s).
+[2025-12-13 21:24:06,921] INFO: Epoch 21/1000 | Train Loss: 1.0167 | Train Acc: 55.22% | Val Loss: 1.5331 | Val Acc: 40.81%
+[2025-12-13 21:24:06,922] INFO: No improvement in val loss for 14 epoch(s).
+[2025-12-13 21:24:07,937] INFO: Epoch 22/1000 | Train Loss: 1.0278 | Train Acc: 55.01% | Val Loss: 1.5894 | Val Acc: 38.24%
+[2025-12-13 21:24:07,937] INFO: No improvement in val loss for 15 epoch(s).
+[2025-12-13 21:24:08,954] INFO: Epoch 23/1000 | Train Loss: 0.9586 | Train Acc: 59.45% | Val Loss: 1.5631 | Val Acc: 40.07%
+[2025-12-13 21:24:08,954] INFO: No improvement in val loss for 16 epoch(s).
+[2025-12-13 21:24:09,966] INFO: Epoch 24/1000 | Train Loss: 0.9730 | Train Acc: 59.45% | Val Loss: 1.5343 | Val Acc: 37.50%
+[2025-12-13 21:24:09,966] INFO: No improvement in val loss for 17 epoch(s).
+[2025-12-13 21:24:11,083] INFO: Epoch 25/1000 | Train Loss: 0.8776 | Train Acc: 63.31% | Val Loss: 1.5060 | Val Acc: 36.40%
+[2025-12-13 21:24:11,083] INFO: No improvement in val loss for 18 epoch(s).
+[2025-12-13 21:24:12,159] INFO: Epoch 26/1000 | Train Loss: 0.8950 | Train Acc: 63.60% | Val Loss: 1.5557 | Val Acc: 37.87%
+[2025-12-13 21:24:12,160] INFO: No improvement in val loss for 19 epoch(s).
+[2025-12-13 21:24:13,296] INFO: Epoch 27/1000 | Train Loss: 0.7995 | Train Acc: 69.52% | Val Loss: 1.5292 | Val Acc: 38.24%
+[2025-12-13 21:24:13,297] INFO: No improvement in val loss for 20 epoch(s).
+[2025-12-13 21:24:13,297] INFO: Early stopping triggered after 20 epochs with no improvement.
+[2025-12-13 21:24:13,297] INFO: Word2Vec lifecycle event {'fname_or_handle': '/app/data/w2v.model', 'separately': 'None', 'sep_limit': 10485760, 'ignore': frozenset(), 'datetime': '2025-12-13T21:24:13.297246', 'gensim': '4.4.0', 'python': '3.10.14 (main, Mar 21 2024, 16:24:04) [GCC 11.2.0]', 'platform': 'Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.35', 'event': 'saving'}
+[2025-12-13 21:24:13,297] INFO: not storing attribute cum_table
+[2025-12-13 21:24:13,410] INFO: saved /app/data/w2v.model
+[2025-12-13 21:24:13,410] INFO: Word2Vec model saved to /app/data/w2v.model
+[2025-12-13 21:24:13,410] INFO: ==== FULL DATASET TRAIN/VAL END ====
+Running script: 03_evaluation.py
+[2025-12-13 21:24:21,696] INFO: ==== EVALUATION START ====
+[2025-12-13 21:24:25,287] INFO: Using device: cuda
+[2025-12-13 21:24:25,349] INFO: GPU: NVIDIA GeForce GTX 1050 Ti, CUDA capability: 6.1
+[2025-12-13 21:24:25,367] INFO: Loaded test dataset with 307 samples.
+[2025-12-13 21:24:25,373] INFO: loading Word2Vec object from /app/data/w2v.model
+[2025-12-13 21:24:25,431] INFO: loading wv recursively from /app/data/w2v.model.wv.* with mmap=None
+[2025-12-13 21:24:25,433] INFO: setting ignored attribute cum_table to None
+[2025-12-13 21:24:26,113] INFO: Word2Vec lifecycle event {'fname': '/app/data/w2v.model', 'datetime': '2025-12-13T21:24:26.109277', 'gensim': '4.4.0', 'python': '3.10.14 (main, Mar 21 2024, 16:24:04) [GCC 11.2.0]', 'platform': 'Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.35', 'event': 'loaded'}
+[2025-12-13 21:24:26,144] INFO: Word2Vec model loaded from /app/data/w2v.model with vocab size 23558 and vector size 64
+[2025-12-13 21:24:33,760] INFO: LSTM model loaded from /app/data/lstm_model.pth and ready for evaluation.
+[2025-12-13 21:24:33,761] INFO: Starting LSTM evaluation on test set...
+[2025-12-13 21:24:34,165] INFO: LSTM Test Loss: 1.3608
+[2025-12-13 21:24:34,167] INFO: LSTM Test Accuracy: 41.04%
+[2025-12-13 21:24:34,168] INFO: LSTM F1-score (weighted): 0.3439
+[2025-12-13 21:24:34,170] INFO: LSTM Confusion Matrix:
+[[ 0  0  2  7  4]
+ [ 0  1  6 17 11]
+ [ 0  2  7 29 27]
+ [ 0  0  7 44 55]
+ [ 0  0  0 14 74]]
+/opt/conda/lib/python3.10/site-packages/sklearn/metrics/_classification.py:1731: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, f"{metric.capitalize()} is", result.shape[0])
+/opt/conda/lib/python3.10/site-packages/sklearn/metrics/_classification.py:1731: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, f"{metric.capitalize()} is", result.shape[0])
+/opt/conda/lib/python3.10/site-packages/sklearn/metrics/_classification.py:1731: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, f"{metric.capitalize()} is", result.shape[0])
+[2025-12-13 21:24:34,194] INFO: LSTM Classification Report:
+              precision    recall  f1-score   support
+
+           0       0.00      0.00      0.00        13
+           1       0.33      0.03      0.05        35
+           2       0.32      0.11      0.16        65
+           3       0.40      0.42      0.41       106
+           4       0.43      0.84      0.57        88
+
+    accuracy                           0.41       307
+   macro avg       0.30      0.28      0.24       307
+weighted avg       0.37      0.41      0.34       307
+
+[2025-12-13 21:24:34,195] INFO: Evaluating TF-IDF + Logistic Regression baseline...
+[2025-12-13 21:24:34,196] INFO: Evaluating TF-IDF + Logistic Regression baseline...
+[2025-12-13 21:24:34,242] INFO: Train dataset loaded: 2434 samples.
+[2025-12-13 21:24:37,049] INFO: TF-IDF + Logistic Regression trained.
+[2025-12-13 21:24:37,120] INFO: TF-IDF + Logistic Regression Test Accuracy: 36.81%
+[2025-12-13 21:24:37,120] INFO: TF-IDF + Logistic Regression F1-score (weighted): 0.3350
+[2025-12-13 21:24:37,122] INFO: TF-IDF + Logistic Regression Confusion Matrix:
+[[ 0  2  4  2  5]
+ [ 0  1 16 14  4]
+ [ 0  4  9 33 19]
+ [ 0  1 24 47 34]
+ [ 0  0  8 24 56]]
+/opt/conda/lib/python3.10/site-packages/sklearn/metrics/_classification.py:1731: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, f"{metric.capitalize()} is", result.shape[0])
+/opt/conda/lib/python3.10/site-packages/sklearn/metrics/_classification.py:1731: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, f"{metric.capitalize()} is", result.shape[0])
+/opt/conda/lib/python3.10/site-packages/sklearn/metrics/_classification.py:1731: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, f"{metric.capitalize()} is", result.shape[0])
+[2025-12-13 21:24:37,145] INFO: TF-IDF Classification Report:
+              precision    recall  f1-score   support
+
+           0       0.00      0.00      0.00        13
+           1       0.12      0.03      0.05        35
+           2       0.15      0.14      0.14        65
+           3       0.39      0.44      0.42       106
+           4       0.47      0.64      0.54        88
+
+    accuracy                           0.37       307
+   macro avg       0.23      0.25      0.23       307
+weighted avg       0.32      0.37      0.34       307
+
+[2025-12-13 21:24:37,147] INFO: ==== EVALUATION END ====
+=== Finished at Sat Dec 13 21:24:38 UTC 2025 ===

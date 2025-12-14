@@ -1,0 +1,88 @@
+=== Starting pipeline at Sat Dec 13 12:39:01 UTC 2025 ===
+Running script: 00_download_data.py
+Downloading to /app/data/downloaded.zip ...
+File downloaded successfully!
+Running script: 01_data_preprocessing.py
+ZIP extracted to: /app/extracted_zip
+ERROR loading file.json: 'rating'
+ERROR loading meta.json: 'str' object has no attribute 'get'
+Base DF columns: Index(['text', 'rating'], dtype='object')
+Consensus DF columns: Index(['text', 'rating'], dtype='object')
+Base DF shape: (3737, 2)
+Consensus DF shape: (2648, 2)
+Number of rows filtered out from base_df because they exist in consensus: 615
+Number of aggregated consensus texts (after averaging): 609
+Consensus inference saved to: /app/data/inference.csv
+Train/Val/Test split saved.
+Running script: 02_train.py
+[2025-12-13 12:39:28,972] INFO: ==== HALF DATASET OVERFIT START ====
+[2025-12-13 12:39:41,335] INFO: Using device: cuda
+[2025-12-13 12:39:41,395] INFO: Half dataset selected: 1217 samples
+[2025-12-13 12:39:41,396] INFO: Train size: 973 | Val size: 244
+[2025-12-13 12:39:41,411] INFO: collecting all words and their counts
+[2025-12-13 12:39:41,411] INFO: PROGRESS: at sentence #0, processed 0 words, keeping 0 word types
+[2025-12-13 12:39:41,416] INFO: collected 3696 word types from a corpus of 9427 raw words and 973 sentences
+[2025-12-13 12:39:41,416] INFO: Creating a fresh vocabulary
+[2025-12-13 12:39:41,455] INFO: Word2Vec lifecycle event {'msg': 'effective_min_count=1 retains 3696 unique words (100.00% of original 3696, drops 0)', 'datetime': '2025-12-13T12:39:41.443386', 'gensim': '4.4.0', 'python': '3.10.14 (main, Mar 21 2024, 16:24:04) [GCC 11.2.0]', 'platform': 'Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.35', 'event': 'prepare_vocab'}
+[2025-12-13 12:39:41,455] INFO: Word2Vec lifecycle event {'msg': 'effective_min_count=1 leaves 9427 word corpus (100.00% of original 9427, drops 0)', 'datetime': '2025-12-13T12:39:41.455871', 'gensim': '4.4.0', 'python': '3.10.14 (main, Mar 21 2024, 16:24:04) [GCC 11.2.0]', 'platform': 'Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.35', 'event': 'prepare_vocab'}
+[2025-12-13 12:39:41,499] INFO: deleting the raw counts dictionary of 3696 items
+[2025-12-13 12:39:41,499] INFO: sample=0.001 downsamples 27 most-common words
+[2025-12-13 12:39:41,499] INFO: Word2Vec lifecycle event {'msg': 'downsampling leaves estimated 7559.898781420203 word corpus (80.2%% of prior 9427)', 'datetime': '2025-12-13T12:39:41.499767', 'gensim': '4.4.0', 'python': '3.10.14 (main, Mar 21 2024, 16:24:04) [GCC 11.2.0]', 'platform': 'Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.35', 'event': 'prepare_vocab'}
+[2025-12-13 12:39:41,561] INFO: estimated required memory for 3696 words and 64 dimensions: 3740352 bytes
+[2025-12-13 12:39:41,561] INFO: resetting layer weights
+[2025-12-13 12:39:41,565] INFO: Word2Vec lifecycle event {'update': False, 'trim_rule': 'None', 'datetime': '2025-12-13T12:39:41.565739', 'gensim': '4.4.0', 'python': '3.10.14 (main, Mar 21 2024, 16:24:04) [GCC 11.2.0]', 'platform': 'Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.35', 'event': 'build_vocab'}
+[2025-12-13 12:39:41,566] INFO: Word2Vec lifecycle event {'msg': 'training model with 3 workers on 3696 vocabulary and 64 features, using sg=0 hs=0 sample=0.001 negative=5 window=5 shrink_windows=True', 'datetime': '2025-12-13T12:39:41.566095', 'gensim': '4.4.0', 'python': '3.10.14 (main, Mar 21 2024, 16:24:04) [GCC 11.2.0]', 'platform': 'Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.35', 'event': 'train'}
+[2025-12-13 12:39:41,597] INFO: EPOCH 0: training on 9427 raw words (7563 effective words) took 0.0s, 307198 effective words/s
+[2025-12-13 12:39:41,622] INFO: EPOCH 1: training on 9427 raw words (7539 effective words) took 0.0s, 354213 effective words/s
+[2025-12-13 12:39:41,650] INFO: EPOCH 2: training on 9427 raw words (7563 effective words) took 0.0s, 318008 effective words/s
+[2025-12-13 12:39:41,677] INFO: EPOCH 3: training on 9427 raw words (7571 effective words) took 0.0s, 384347 effective words/s
+[2025-12-13 12:39:41,702] INFO: EPOCH 4: training on 9427 raw words (7555 effective words) took 0.0s, 349652 effective words/s
+[2025-12-13 12:39:41,702] INFO: Word2Vec lifecycle event {'msg': 'training on 47135 raw words (37791 effective words) took 0.1s, 276462 effective words/s', 'datetime': '2025-12-13T12:39:41.702953', 'gensim': '4.4.0', 'python': '3.10.14 (main, Mar 21 2024, 16:24:04) [GCC 11.2.0]', 'platform': 'Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.35', 'event': 'train'}
+[2025-12-13 12:39:41,703] INFO: Word2Vec lifecycle event {'params': 'Word2Vec<vocab=3696, vector_size=64, alpha=0.025>', 'datetime': '2025-12-13T12:39:41.703082', 'gensim': '4.4.0', 'python': '3.10.14 (main, Mar 21 2024, 16:24:04) [GCC 11.2.0]', 'platform': 'Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.35', 'event': 'created'}
+[2025-12-13 12:39:41,859] INFO: ==== CONFIG & HYPERPARAMETERS START ====
+[2025-12-13 12:39:41,860] INFO: BATCH_SIZE          : 32
+[2025-12-13 12:39:41,860] INFO: DATA_DIR            : /app/data
+[2025-12-13 12:39:41,860] INFO: EARLY_STOP_PATIENCE : 40
+[2025-12-13 12:39:41,860] INFO: FC_DROPOUT          : 0.1
+[2025-12-13 12:39:41,860] INFO: LEARNING_RATE       : 0.04
+[2025-12-13 12:39:41,860] INFO: LOG_FILE            : /app/logs/run.log
+[2025-12-13 12:39:41,860] INFO: LSTM_DROPOUT        : 0.1
+[2025-12-13 12:39:41,860] INFO: LSTM_HIDDEN_DIM     : 8
+[2025-12-13 12:39:41,860] INFO: MODEL_NAME          : LSTM
+[2025-12-13 12:39:41,860] INFO: MODEL_PATH          : /app/data/lstm_model.pth
+[2025-12-13 12:39:41,861] INFO: NUM_CLASSES         : 5
+[2025-12-13 12:39:41,861] INFO: NUM_EPOCHS          : 1000
+[2025-12-13 12:39:41,861] INFO: NUM_LSTM_LAYERS     : 1
+[2025-12-13 12:39:41,861] INFO: SEQ_LEN             : 10
+[2025-12-13 12:39:41,861] INFO: W2V_PATH            : /app/data/w2v.model
+[2025-12-13 12:39:41,861] INFO: WORD2_VEC_MIN_COUNT : 1
+[2025-12-13 12:39:41,861] INFO: WORD2_VEC_VECTOR_SIZE: 64
+[2025-12-13 12:39:41,862] INFO: ==== CONFIG & HYPERPARAMETERS END ====
+[2025-12-13 12:39:55,158] INFO: ==== MODEL SUMMARY START ====
+[2025-12-13 12:39:55,159] INFO: Model architecture:
+[2025-12-13 12:39:55,159] INFO: MultiLayerLSTM(
+  (emb): Embedding(3697, 64, padding_idx=0)
+  (lstm): LSTM(64, 8, batch_first=True)
+  (dropout): Dropout(p=0, inplace=False)
+  (fc): Linear(in_features=8, out_features=5, bias=True)
+)
+[2025-12-13 12:39:55,159] INFO: Total parameters      : 239,021
+[2025-12-13 12:39:55,160] INFO: Trainable parameters  : 239,021
+[2025-12-13 12:39:55,160] INFO: Frozen parameters     : 0
+[2025-12-13 12:39:55,160] INFO: Embedding parameters  : 236,608
+[2025-12-13 12:39:55,160] INFO: ==== MODEL SUMMARY END ====
+[2025-12-13 12:40:00,901] INFO: Epoch 001 | Train Loss: 1.4846 | Train Acc: 31.45% | Val Loss: 1.4318 | Val Acc: 29.51%
+[2025-12-13 12:40:01,142] INFO: Epoch 002 | Train Loss: 1.0128 | Train Acc: 61.25% | Val Loss: 2.2192 | Val Acc: 33.20%
+[2025-12-13 12:40:01,334] INFO: Epoch 003 | Train Loss: 0.4810 | Train Acc: 83.66% | Val Loss: 2.8286 | Val Acc: 34.02%
+[2025-12-13 12:40:01,526] INFO: Epoch 004 | Train Loss: 0.2523 | Train Acc: 92.09% | Val Loss: 2.8868 | Val Acc: 34.02%
+[2025-12-13 12:40:01,718] INFO: Epoch 005 | Train Loss: 0.1492 | Train Acc: 95.48% | Val Loss: 3.1322 | Val Acc: 32.38%
+[2025-12-13 12:40:01,908] INFO: Epoch 006 | Train Loss: 0.0851 | Train Acc: 97.23% | Val Loss: 3.5023 | Val Acc: 31.97%
+[2025-12-13 12:40:02,099] INFO: Epoch 007 | Train Loss: 0.0507 | Train Acc: 98.15% | Val Loss: 3.6951 | Val Acc: 29.51%
+[2025-12-13 12:40:02,287] INFO: Epoch 008 | Train Loss: 0.0398 | Train Acc: 98.66% | Val Loss: 3.9682 | Val Acc: 33.20%
+[2025-12-13 12:40:02,476] INFO: Epoch 009 | Train Loss: 0.0346 | Train Acc: 98.77% | Val Loss: 4.2276 | Val Acc: 28.69%
+[2025-12-13 12:40:02,669] INFO: Epoch 010 | Train Loss: 0.0370 | Train Acc: 98.56% | Val Loss: 4.5046 | Val Acc: 28.28%
+[2025-12-13 12:40:02,859] INFO: Epoch 011 | Train Loss: 0.0237 | Train Acc: 99.28% | Val Loss: 4.4895 | Val Acc: 29.10%
+[2025-12-13 12:40:02,860] INFO: ==== TARGET TRAIN ACC 99% REACHED ====
+Stopping training.
+[2025-12-13 12:40:02,860] INFO: ==== HALF DATASET OVERFIT END ====
+=== Finished at Sat Dec 13 12:40:05 UTC 2025 ===

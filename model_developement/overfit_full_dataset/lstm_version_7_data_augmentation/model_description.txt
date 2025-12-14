@@ -1,0 +1,16 @@
+==== MODEL SUMMARY START ====
+Model architecture:
+MultiLayerLSTM(
+  (emb): Embedding(23187, 64, padding_idx=0)
+  (lstm): LSTM(64, 128, num_layers=2, batch_first=True, dropout=0.3)
+  (attention): Linear(in_features=128, out_features=1, bias=True)
+  (dropout): Dropout(p=0.4, inplace=False)
+  (fc): Linear(in_features=128, out_features=5, bias=True)
+)
+Total parameters      : 1,716,166
+Trainable parameters  : 1,716,166
+Frozen parameters     : 0
+Embedding parameters  : 1,483,968
+==== MODEL SUMMARY END ====
+
+Test summary: LSTM Test Loss: 1.3685 | Test Accuracy: 43.65% | Weighted F1: 0.3853

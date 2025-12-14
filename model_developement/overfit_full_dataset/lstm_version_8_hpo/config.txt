@@ -1,0 +1,18 @@
+HPO run: Ray Tune training with 20 trials
+Base search space examples (per-trial parameters):
+- hidden_dim: {32,64,128}
+- lr: (example) 0.0001 - 0.003
+- lstm_dropout: (example) ~0.05 - 0.37
+- fc_dropout: (example) ~0.20 - 0.60
+- bidirectional: {True, False}
+- num_layers: {1,2,3}
+
+Representative best trial (train_lstm_tune_1e17d_00000):
+  hidden_dim: 64
+  lr: 0.000605082
+  lstm_dropout: 0.254493
+  fc_dropout: 0.549251
+  bidirectional: True
+  num_layers: 3
+
+See Ray results directory in logs for full trial details.

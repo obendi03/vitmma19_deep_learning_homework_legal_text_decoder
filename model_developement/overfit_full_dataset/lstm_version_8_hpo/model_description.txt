@@ -1,0 +1,13 @@
+HPO run summary:
+- Ray Tune experiment: train_lstm_tune_2025-12-13_19-58-39
+- Number of trials: 20
+- Representative strong trial (train_lstm_tune_1e17d_00000) configuration:
+  - MultiLayerLSTM with Embedding (vocab ~23557, dim=64)
+  - LSTM hidden_dim=64, num_layers=3, bidirectional=True
+  - fc_dropout ~0.549, lstm_dropout ~0.254
+  - Total params varied per trial; representative models ~1.7-1.8M params
+
+Best observed validation accuracy in HPO: ~0.43382 (representative trial)
+Reported best test accuracies in logs: variable per trial (top observed in experiments ~42-45%).
+
+For full trial logs and exact final-model summaries see the Ray results/output folder referenced in the run log.
