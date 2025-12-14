@@ -1,7 +1,7 @@
-## Deep Learning tantárgy (VITMMA19) — Projekt
+## Deep Learning tantárgy (VITMMA19) — Legal Text Decoder
 
 # Projektinformáció
-Kiválasztott téma: Jogszöveg dekódoló
+Kiválasztott téma: Legal Text Decoder
 
 Hallgató: Oláh Bendegúz István
 
@@ -15,6 +15,17 @@ terjedő skálán adja meg az érthetőséget, segítve ezzel a jogi szövegek k
 felmérését.
 # Megoldás rövid leírása
 Moduláris, reprodukálható mélytanulási pipeline-t készítettem jogi szövegek osztályozására. Főként LSTM‑variánsokat (BiLSTM, attention), focal loss-t és HPO-t alkalmaztam.
+
+## Adatelőkészítés (Data Preparation)
+
+A pipeline alapértelmezett működése: a konténer indításakor a `src/00_download_data.py` script próbálja automatikusan letölteni és kicsomagolni a szükséges nyers adatkészleteket a `data/` mappába (konténer belső útvonala: `/app/data`). Amennyiben Dockerrel futtatod, csatold a helyi `data` mappát a konténerhez a `-v "%cd%\data:/app/data"` opcióval a `docker run` parancsban.
+
+Ha az automatikus letöltés nem sikerül (például SharePoint hitelesítés vagy hálózati korlátozás miatt), kövesd a manuális eljárást:
+
+- Töltsd le a ZIP fájlt a SharePoint megosztásról a böngészővel.
+- Nevezd át a letöltött fájlt `downloaded.zip`-re.
+- Helyezd a `downloaded.zip` fájlt a repository `data/` mappájába (konténerben: `/app/data`).
+
 
 ## Kísérleti beállítások
 
@@ -94,15 +105,6 @@ Az alábbiakban rövid, rendezett eredmények találhatók a rendelkezésre áll
 
 Megjegyzés: a részletes Modell fejlesztés lépések verziók leírásai külön fájlban találhatók. Kérlek, másold át vagy szerkeszd a részleteket a következő fájlban: [model_developement/PER-LSTM_versions.md](model_developement/PER-LSTM_versions.md).
 
-## Adatelőkészítés (Data Preparation)
-
-A pipeline alapértelmezett működése: a konténer indításakor a `src/00_download_data.py` script próbálja automatikusan letölteni és kicsomagolni a szükséges nyers adatkészleteket a `data/` mappába (konténer belső útvonala: `/app/data`). Amennyiben Dockerrel futtatod, csatold a helyi `data` mappát a konténerhez a `-v "%cd%\data:/app/data"` opcióval a `docker run` parancsban.
-
-Ha az automatikus letöltés nem sikerül (például SharePoint hitelesítés vagy hálózati korlátozás miatt), kövesd a manuális eljárást:
-
-- Töltsd le a ZIP fájlt a SharePoint megosztásról a böngészővel.
-- Nevezd át a letöltött fájlt `downloaded.zip`-re.
-- Helyezd a `downloaded.zip` fájlt a repository `data/` mappájába (konténerben: `/app/data`).
 
 
 
