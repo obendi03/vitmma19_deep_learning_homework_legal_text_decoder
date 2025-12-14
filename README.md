@@ -103,7 +103,7 @@ Az alábbiakban rövid, rendezett eredmények találhatók a rendelkezésre áll
 
 ## **Részletes modell fejlesztés lépések**
 
-Megjegyzés: a részletes Modell fejlesztés lépések verziók leírásai külön fájlban találhatók. Kérlek, másold át vagy szerkeszd a részleteket a következő fájlban: [model_developement/PER-LSTM_versions.md](model_developement/PER-LSTM_versions.md).
+Megjegyzés: a részletes Modell fejlesztés lépések verziók leírásai külön fájlban találhatók: [model_developement/PER-LSTM_versions.md](model_developement/PER-LSTM_versions.md).
 
 
 
