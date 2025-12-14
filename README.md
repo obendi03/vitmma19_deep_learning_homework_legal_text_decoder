@@ -245,9 +245,7 @@ Az előző futtatásból készült kép (ha létezik) be van helyezve az `evalua
 
 - Teszt konfúziós mátrix: [evaluation_plots/confusion_matrices_all.png](evaluation_plots/confusion_matrices_all.png)
 
-Ha szeretnéd, külön fájlokra bontom (teszt vs konszenzus) és beszúrom inline PNG-ként a README-be.
 
-Ha szeretnéd, beállítom, hogy a kiértékelő scriptek (`src/03_1_evaluation_test_set.py` és `src/03_2_evaluation_consensus.py`) mindig kiírják a `predictions.csv`-t (oszlopok: `y_true`,`y_pred`) a `log/` vagy `data/` mappába — ez lehetővé teszi az automatikus ábragenerálást.
 
 # Naplózás
 Az általam beállított naplózás a `src/utils.py` (vagy a kísérletekhez `model_developement/utils.py`) logger segédletét használja, amely az stdout-ra ír, így a Docker futtatás elfogja a logokat. A beadáshoz szükséges naplóelemeket a train scriptek biztosítják, például:
