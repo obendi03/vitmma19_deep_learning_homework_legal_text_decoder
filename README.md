@@ -97,9 +97,9 @@ Az alábbiakban rövid, rendezett eredmények találhatók a rendelkezésre áll
 		- Példa erős konfiguráció: hidden_dim=64, lr≈6.05e-4, bidirectional=True, num_layers=3, fc_dropout≈0.55
 		- Increment: Inc#6 (HPO — final search / improvement)
 
-## **Per-LSTM verzió állapota (részletes fejezeteka modell fejlesztésről)**
+## **Részletes modell fejlesztés lépések**
 
-Megjegyzés: a részletes per-LSTM verziók leírásai külön fájlban találhatók. Kérlek, másold át vagy szerkeszd a részleteket a következő fájlban: [model_developement/PER-LSTM_versions.md](model_developement/PER-LSTM_versions.md).
+Megjegyzés: a részletes Modell fejlesztés lépések verziók leírásai külön fájlban találhatók. Kérlek, másold át vagy szerkeszd a részleteket a következő fájlban: [model_developement/PER-LSTM_versions.md](model_developement/PER-LSTM_versions.md).
 
 ## Adatelőkészítés
 
@@ -250,35 +250,32 @@ Megjegyzések:
 
 ### `src/` tartalom (rövid felsorolás)
 
-- `00_download_data.py`: letölti vagy előkészíti a nyers forrásfájlokat (ha szükséges) — Pipeline: opcionális elindító lépés.
+## Fájlszerkezet (aktuális)
+## Fájlszerkezet (aktuális)
+- `Dockerfile`: Leírja, hogyan épül és konfigurálódik a projekt konténeres futtatókörnyezete.
+- `requirements.txt`: Tartalmazza a projekt futtatásához szükséges Python-csomagok és verziók listáját.
+- `README.md`: Áttekintést, futtatási és beadási utasításokat, valamint a projekt struktúráját és eredményeit ismerteti.
+- `evaluation_plots/`: Itt tároljuk a kiértékelési vizualizációkat (pl. confusion matrix, metrika-plotok).
+- `log/`: A pipeline és kísérletek futtatási naplóit (pl. `run.log`) és kísérleti logokat gyűjti.
+- `model_developement/`: Kísérleti futtatások, model-verziók, checkpointok és kapcsolódó naplók tárolóhelye.
+- `notebooks/`: Jupyter jegyzetfüzetek az EDA-hoz, elemzésekhez és kísérletek dokumentálásához.
+- `scripts/`: Segédfájlok és automatizált parancsfájlok (letöltés, indítás, segédműveletek).
+- `src/` — lásd részletes listát lent: a pipeline forrásai (adatletöltés, előfeldolgozás, tréning, HPO, kiértékelés, inference és segédmodulok).
+- `data/` (nem verziózott; ide kerülnek a `train/val/test` fájlok): a nyers és feldolgozott bemeneti adatok helye, amelyet a pipeline használ.
 
-- `01_data_preprocessing.py`: beolvassa az annotációkat, tisztít, aggregál (consensus), és menti a `train.csv`/`val.csv`/`test.csv` fájlokat — Pipeline: kötelező előfeldolgozás.
-	- Fő lépések és kapcsolódó kódrészletek:
-		- Annotációk betöltése és feldolgozása: [src/01_data_preprocessing.py#L9-L30] (függvények: `load_annotations`, `load_annotations_from_folder`).
-		- Konszenzus kezelése, szűrés és export (`inference.csv`): [src/01_data_preprocessing.py#L94-L119].
-		- Train/Val/Test split rögzített seed-del és CSV mentése: [src/01_data_preprocessing.py#L119] / [src/01_data_preprocessing.py#L123-L124].
+### `src/` —  tartalom
+- `00_download_data.py` — adatletöltés és kicsomagolás (opcionális)
+- `01_data_preprocessing.py` — annotációk betöltése, tisztítás, konszenzus aggregálás, átlagoás, /val/test CSV előállítás
+- `02_train.py` — fő tréning script (modellépítés, training loop, checkpointing)
+- `02_train_ray_tune.py` — Ray Tune HPO futtatások és konfiguráció
+- `03_1_evaluation_test_set.py` — tesztkészlet kiértékelés (metrikák, riportok)
+- `03_2_evaluation_consensus.py` — konszenzusos címkékkel végzett kiértékelés
+- `04_inference.py` — inferencia és predikciók mentése 
+- `config.py` — projekt-szintű konfigurációk és alapértelmezések
+- `model.py` — modell/osztály definíciók (pl. LSTM/attention komponentek)
+- `run.sh` — futtatási segédfájl (shell)
+- `utils.py` — logger konfiguráció, tokenizálás, collate fn, metrikák és egyéb segédfüggvények
 
-- `02_train.py`: a fő tréning script; betölti a feldolgozott adatokat, felépíti a modellt, futtatja az epoch-okat és menti a checkpoint-okat — Pipeline: core (központi).
-	- Fő lépések és kapcsolódó kódrészletek:
-		- Tokenizálás és szekvencia előkészítés (pad/trim, `SEQ_LEN`, `tokens_to_indices`): [src/02_train.py#L47-L56].
-		- Word2Vec embedding tanítás és betöltés (HPO esetén is hívva): [src/02_train.py#L47], [src/02_train_ray_tune.py#L51].
-		- A train script bemutatja a `pd.read_csv`-t, `Dataset` / `DataLoader` használatot és batching-et: lásd a fájl elejét és a `model_developement/overfit_full_dataset/02_train.py` példáit.
-
-- `03_evaluation.py` / `03_1_evaluation_test_set.py`: kiértékeli a mentett checkpoint-okat a teszt- és konszenzus-készleteken, generál metrikákat és riportokat — Pipeline: kötelező utófeldolgozás.
-
-- `04_inference.py`: betölti a végső checkpoint-ot és predikciókat készít új (címkézetlen) adatokra — Pipeline: opcionális (deployment/inference lépés).
-
-- `config.py`: projekt-szintű alapértelmezett konfigurációk (útvonalak, hyperparaméterek, seed) — Pipeline: szükséges referencia.
-
-- `utils.py`: segédfüggvények (tokenizálás, `Dataset`/`DataLoader` collate, metrikák, logger) — Pipeline: támogató komponens.
-
-- `logs/`: futtatási naplók gyűjtőhelye (helyi kimenet és HPO trial naplók) — Pipeline: kimenet/diagnosztika.
-
-- `model_developement/`: modellek, segédfüggvények és kísérleti futtatások forrásai (iteratív fejlesztés és per-experiment scriptek) — a fejlesztési/eksperimentációs része a munkafolyamatnak.
-
-- `data/`: a nyers és feldolgozott adatok tára (nem verziózott) — bemenete a pipeline-nak, de maga nem kód.
-
-- `log/`: a futtatási naplók helye (`run.log` és kísérleti `log/` almappák) — a pipeline kimenete és diagnosztikai forrása.
 
 # Függőségek
 Az összes Python függőség a `requirements.txt` fájlban található.
