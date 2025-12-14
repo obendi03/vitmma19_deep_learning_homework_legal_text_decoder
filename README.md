@@ -241,7 +241,6 @@ Megjegyzések:
 - `log/`: A pipeline és kísérletek futtatási naplóit (pl. `run.log`) és kísérleti logokat gyűjti.
 - `model_developement/`: Kísérleti futtatások, model-verziók, checkpointok és kapcsolódó naplók tárolóhelye.
 - `notebooks/`: Jupyter jegyzetfüzetek az EDA-hoz, elemzésekhez és kísérletek dokumentálásához.
-- `scripts/`: Segédfájlok és automatizált parancsfájlok (letöltés, indítás, segédműveletek).
 - `src/` — lásd részletes listát lent: a pipeline forrásai (adatletöltés, előfeldolgozás, tréning, HPO, kiértékelés, inference és segédmodulok).
 - `data/` (nem verziózott; ide kerülnek a `train/val/test` fájlok): a nyers és feldolgozott bemeneti adatok helye, amelyet a pipeline használ.
 
